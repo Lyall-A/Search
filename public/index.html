@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Search</title>
-        <!-- <script defer src="/main.js"></script> -->
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script>
-    </head>
-    <body>
-        <div id="app">
-            <input v-model="query" type="text" placeholder="Search Google">
-            <button @click="search">Search</button>
-        </div>
 
-        <script>
-            new Vue({
-                el: "#app",
-                data: { query: "" },
-                methods: {
-                    search() {
-                        location.href = `https://www.google.com/search?q=${encodeURIComponent(this.query)}`;
-                    }
-                }
-            })
-        </script>
-    </body>
+<head>
+    <title>Search</title>
+    <!-- <script defer src="/main.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script> -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="query" type="text" placeholder="Search Google">
+        <button @click="search">Search</button>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                const query = ref("");
+
+                const search = () => {
+                    window.location.href = `https://www.google.com/search?q=${encodeURIComponent(query.value)}`;
+                };
+
+                return {
+                    query,
+                    search
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+
 </html>
